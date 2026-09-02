@@ -1316,29 +1316,9 @@
  "orientation":"orthogonal",
  "properties":[
         {
-         "name":"mapCopyright",
-         "type":"string",
-         "value":"Small Forest School is the sole property of 100 Roads Design LLC. All rights are reserved by 100 Roads Design LLC. All contents of the map may not be reproduced, distributed (for sale or otherwise), or create derivative works of the copyrighted work without the express written permission of 100 Roads Design LLC."
-        }, 
-        {
-         "name":"mapImage",
-         "type":"string",
-         "value":"small-forest-school-premium.png"
-        }, 
-        {
-         "name":"mapName",
-         "type":"string",
-         "value":"Small Forest School Premium"
-        }, 
-        {
          "name":"script",
          "type":"string",
          "value":"src\/main.ts"
-        }, 
-        {
-         "name":"tilesetCopyright",
-         "type":"string",
-         "value":"This map is the sole property of 100 Roads Design LLC. All rights are reserved by 100 Roads Design LLC. All contents of the map may not be reproduced, distributed (for sale or otherwise), or create derivative works of the copyrighted work without the express written permission of 100 Roads Design LLC."
         }],
  "renderorder":"right-down",
  "tiledversion":"1.11.0",
