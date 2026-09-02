@@ -1319,17 +1319,22 @@
          "name":"mapCopyright",
          "type":"string",
          "value":"The Collaborative is the sole property of DigiPie Design. All rights are reserved by DigiPie Design. All contents of the map may not be reproduced, distributed (for sale or otherwise), or create derivative works of the copyrighted work without the express written permission of DigiPie Design."
-        },
+        }, 
+        {
+         "name":"mapImage",
+         "type":"string",
+         "value":"the-collaborative.png"
+        }, 
         {
          "name":"mapName",
          "type":"string",
          "value":"The Collaborative"
-        },
+        }, 
         {
          "name":"script",
          "type":"string",
          "value":"src\/main.ts"
-        },
+        }, 
         {
          "name":"tilesetCopyright",
          "type":"string",
