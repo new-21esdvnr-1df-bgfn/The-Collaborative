@@ -51,6 +51,26 @@ WA.onInit().then(() => {
         console.info('Scripting API Extra ready');
     }).catch(e => console.error(e));
 
+    let artist-of-the-month: EmbeddedWebsite = await WA.room.website.get("artist-of-the-month")
+    WA.room.onEnterLayer("artist-zone").subscribe(() => {
+      console.log("HI IRYNA")
+      artist-of-the-month.visible = false;
+    });
+
+  WA.room.onLeaveLayer("artist-zone").subscribe(() => {
+      artist-of-the-month.visible = true;
+    });
+
+}).catch(e => console.error(e));
+
+function closePopup(){
+    if (currentPopup !== undefined) {
+        currentPopup.close();
+        currentPopup = undefined;
+    }
+}
+
+
 }).catch(e => console.error(e));
 
 function closePopup(){
