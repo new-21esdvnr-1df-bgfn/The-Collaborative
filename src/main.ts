@@ -1,6 +1,7 @@
 /// <reference types="@workadventure/iframe-api-typings" />
 
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
+import { EmbeddedWebsite } from "@workadventure/iframe-api-typings";
 
 console.info('Script started successfully');
 
