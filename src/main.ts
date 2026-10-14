@@ -1,80 +1,100 @@
+
 /// <reference types="@workadventure/iframe-api-typings" />
 
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
-import { EmbeddedWebsite } from "@workadventure/iframe-api-typings";
+import type { EmbeddedWebsite } from "@workadventure/iframe-api-typings";
 
-console.info('Script started successfully');
+console.info("Script started successfully");
 
 let currentPopup: any = undefined;
 
 // Waiting for the API to be ready
-WA.onInit().then(() => {
-    console.info('Scripting API ready');
-    console.info('Player tags: ',WA.player.tags)
+WA.onInit().then(async () => {
+    console.info("Scripting API ready");
+    console.info("Player tags: ", WA.player.tags);
 
-        // Julia custom
+    // Julia custom
 
     WA.room.onEnterLayer("floor").subscribe(() => {
         WA.room.hideLayer("roof");
         WA.room.hideLayer("walls-bg-front");
         WA.room.hideLayer("sign");
-      });
-      
+    });
+
     WA.room.onLeaveLayer("floor").subscribe(() => {
         WA.room.showLayer("roof");
         WA.room.showLayer("walls-bg-front");
         WA.room.showLayer("facade-furniture-bg");
         WA.room.showLayer("sign");
-      });
+    });
 
-      WA.room.onEnterLayer("rooms_floor").subscribe(() => {
+    WA.room.onEnterLayer("rooms_floor").subscribe(() => {
         WA.room.hideLayer("facade-furniture-fg");
         WA.room.hideLayer("facade");
         WA.room.hideLayer("facade-furniture-bg");
-      });
-      
+    });
+
     WA.room.onLeaveLayer("rooms_floor").subscribe(() => {
         WA.room.showLayer("facade-furniture-fg");
         WA.room.showLayer("facade");
         WA.room.showLayer("facade-furniture-bg");
-      });
+    });
 
-    WA.room.area.onEnter('clock').subscribe(() => {
+    // Clock popup
+
+    WA.room.area.onEnter("clock").subscribe(() => {
         const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes();
-        currentPopup = WA.ui.openPopup("clockPopup", "It's " + time, []);
-    })
+        const time =
+            today.getHours() + ":" +
+            String(today.getMinutes()).padStart(2, "0");
 
-    WA.room.area.onLeave('clock').subscribe(closePopup)
-
-    // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
-    bootstrapExtra().then(() => {
-        console.info('Scripting API Extra ready');
-    }).catch(e => console.error(e));
-
-    let artist-of-the-month: EmbeddedWebsite = await WA.room.website.get("artist-of-the-month")
-    WA.room.onEnterLayer("artist-zone").subscribe(() => {
-      console.log("HI IRYNA")
-      artist-of-the-month.visible = false;
+        currentPopup = WA.ui.openPopup(
+            "clockPopup",
+            "It's " + time,
+            []
+        );
     });
 
-  WA.room.onLeaveLayer("artist-zone").subscribe(() => {
-      artist-of-the-month.visible = true;
-    });
+    WA.room.area.onLeave("clock").subscribe(closePopup);
 
-}).catch(e => console.error(e));
+    // Bootstrap Scripting API Extra
 
-function closePopup(){
-    if (currentPopup !== undefined) {
-        currentPopup.close();
-        currentPopup = undefined;
+    bootstrapExtra()
+        .then(() => {
+            console.info("Scripting API Extra ready");
+        })
+        .catch(e => console.error(e));
+
+    // Artist of the Month
+
+    try {
+        const artistOfTheMonth: EmbeddedWebsite =
+            await WA.room.website.get("artistOfTheMonth");
+
+        WA.room.onEnterLayer("artistZone").subscribe(() => {
+            console.log("Entering artist zone");
+            artistOfTheMonth.visible = false;
+        });
+
+        WA.room.onLeaveLayer("artistZone").subscribe(() => {
+            console.log("Leaving artist zone");
+            artistOfTheMonth.visible = true;
+        });
+
+        console.info("Artist of the Month script ready");
+
+    } catch (error) {
+        console.error(
+            "Error loading Artist of the Month website:",
+            error
+        );
     }
-}
-
 
 }).catch(e => console.error(e));
 
-function closePopup(){
+// Close popup function
+
+function closePopup() {
     if (currentPopup !== undefined) {
         currentPopup.close();
         currentPopup = undefined;
